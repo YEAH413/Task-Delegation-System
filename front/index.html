@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- 文档类型声明，HTML5 -->
+    <meta charset="UTF-8"> <!-- 设置文档字符集为UTF-8，支持中文字符 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 视口设置，确保移动端自适应 -->
+    <title>帮派项目测试站 - 首页</title> <!-- 页面标题，显示在浏览器标签栏中 -->
+
+    <!-- 引入外部CSS文件 -->
+    <link rel="stylesheet" href="./css/all.min.css"> <!-- 引入Font Awesome图标库 -->
+    <link rel="stylesheet" href="./css/style.css">  <!-- 引入全局样式文件 -->
+    <link rel="stylesheet" href="./css/index.css">  <!-- 引入首页专属样式文件 -->
+    <!-- Swiper CSS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+</head>
+<body>
+
+
+
+<!-- 页头部分 -->
+<header>
+    <div class="container"> <!-- 使用.container来限制宽度并居中内容 -->
+        <!-- 网站Logo -->
+        <div class="logo">
+            <img src="img/logo_white.png" alt="Logo"> <!-- 网站Logo图片，alt属性提供替代文本 -->
+        </div>
+
+        <!-- 中间搜索栏 -->
+        <div class="search-bar">
+            <input type="text" placeholder="搜索任务..." class="search-input"> <!-- 搜索框 -->
+            <button class="search-button">搜索</button> <!-- 搜索按钮 -->
+        </div>
+
+        <!-- 汉堡菜单按钮（用于移动端） -->
+        <label for="menucheck" class="menu-icon">
+            <em></em> <!-- 菜单按钮的第一条线 -->
+            <em></em> <!-- 菜单按钮的第二条线 -->
+            <em></em> <!-- 菜单按钮的第三条线 -->
+        </label>
+
+        <!-- 菜单切换控制，使用checkbox实现 -->
+        <input type="checkbox" id="menucheck" title="Toggle menu" aria-label="Toggle menu">
+
+        <!-- 导航菜单 -->
+        <ul>
+            <li class="actived"><a href="./index.html" target="_self">首页</a></li> <!-- 当前页面的导航项，高亮显示 -->
+            <li><a href="./case.html" target="_self">赏金坊</a></li> <!-- 其他页面的导航项 -->
+            <li><a href="./about.html" target="_self">江湖日志</a></li>
+        </ul>
+
+        <!-- 清除浮动，确保布局的正常显示 -->
+    </div>
+</header>
+<!-- Swiper JS -->
+
+
+<div class="background-container"></div> <!-- 背景图容器 -->
+
+<div class="content">
+    <div class="banner">
+        <!-- <div class="image">
+          
+        </div> -->
+        <div class="core1">
+            <div class="core1xia clearfix" id="core1xia">
+                <a><img src="img/bigbg1.jpg" alt=""></a>
+                <a><img src="img/bigbg2.jpg" alt=""></a>
+                <a><img src="img/bigbg3.jpg" alt=""></a>
+            </div>
+            <span class="coreleft" id="coreleft" onclick="turnLeft()">&lt;</span>
+            <span class="coreright" id="coreright" onclick="turnRight()">&gt;</span>
+            <ul class="corexia clearfix">
+                <li class="coreli coreli1" data-n="0" onclick="DianjiCoreli()"></li>
+                <li class="coreli" data-n="1" onclick="DianjiCoreli()"></li>
+                <li class="coreli" data-n="2" onclick="DianjiCoreli()"></li>
+            </ul>
+        </div>
+        
+        <div class="right-panels">
+            <div class="panel">赏金坊</div>
+            <div class="panel">排行榜</div>
+            <div class="panel">附近赏金</div>
+            <div class="panel">江湖热议</div>
+        </div>
+        <div class="extra-content">我的信息</div> <!-- 第三块部分 -->
+    </div>
+    
+        
+    
+    
+    <div class="category-bar">
+        <!-- 左侧部分 - 个性推荐 -->
+        <div class="category-left">
+            <div class="title">推荐</div> <!-- 左侧部分标题 -->
+        </div>
+    
+        <!-- 右侧部分 - 分类栏 -->
+        <div class="category-right">
+            <!-- 第一行：线上任务 -->
+            <div class="category-row">
+                <div class="category-item">线上任务</div>
+                <div class="category-item">内容创作</div>
+                <div class="category-item">编程开发</div>
+                <div class="category-item">咨询答疑</div>
+                <div class="category-item">创意设计</div>
+            </div>
+    
+            <!-- 第二行：线下任务 -->
+            <div class="category-row">
+                <div class="category-item">线下任务</div>
+                <div class="category-item">助理跑腿</div>
+                <div class="category-item">教学辅导</div>
+                <div class="category-item">日常生活</div>
+                <div class="category-item">约拍化妆</div>
+            </div>
+        </div>
+    
+        <!-- 新增的板块部分，位于右侧 -->
+        <div class="extra-panel">
+            <!-- 这里放置您想展示的内容，例如额外的推荐板块等 -->
+            <p>（宣传短句）帮派！助你结束烦恼！！！</p>
+        </div>
+    </div>
+    
+            <div class="task">
+                <div class="task-item">
+                    <div class="task-item-img"><img src="img/task1.jpg" alt="任务图片"></div>
+                    <div class="task-item-title">设计任务：网页UI设计</div>
+                    <div class="task-item-price">
+                        <span>￥</span>100
+                    </div>
+                </div>
+            
+                <div class="task-item">
+                    <div class="task-item-img"><img src="img/task2.jpg" alt="任务图片"></div>
+                    <div class="task-item-title">教学任务：英语口语辅导</div>
+                    <div class="task-item-price">
+                        <span>￥</span>200
+                    </div>
+                </div>
+            
+                <div class="task-item">
+                    <div class="task-item-img"><img src="img/task3.jpg" alt="任务图片"></div>
+                    <div class="task-item-title">文件处理任务：资料整理</div>
+                    <div class="task-item-price">
+                        <span>￥</span>80
+                    </div>
+                </div>
+            
+                <div class="task-item">
+                    <div class="task-item-img"><img src="img/task4.jpg" alt="任务图片"></div>
+                    <div class="task-item-title">跑腿任务：快递取送</div>
+                    <div class="task-item-price">
+                        <span>￥</span>50
+                    </div>
+                </div>
+            
+                <div class="task-item">
+                    <div class="task-item-img"><img src="img/task5.jpg" alt="任务图片"></div>
+                    <div class="task-item-title">创意设计：海报设计</div>
+                    <div class="task-item-price">
+                        <span>￥</span>150
+                    </div>
+                </div>
+            
+                <div class="task-item">
+                    <div class="task-item-img"><img src="img/task6.jpg" alt="任务图片"></div>
+                    <div class="task-item-title">编程开发任务：网站开发</div>
+                    <div class="task-item-price">
+                        <span>￥</span>500
+                    </div>
+                </div>
+            
+                <div class="task-item">
+                    <div class="task-item-img"><img src="img/task7.jpg" alt="任务图片"></div>
+                    <div class="task-item-title">助理任务：资料录入</div>
+                    <div class="task-item-price">
+                        <span>￥</span>120
+                    </div>
+                </div>
+            
+                <div class="task-item">
+                    <div class="task-item-img"><img src="img/task8.jpg" alt="任务图片"></div>
+                    <div class="task-item-title">化妆任务：化妆服务</div>
+                    <div class="task-item-price">
+                        <span>￥</span>250
+                    </div>
+                </div>
+            
+                <div class="task-item">
+                    <div class="task-item-img"><img src="img/task9.jpg" alt="任务图片"></div>
+                    <div class="task-item-title">拍摄任务：活动拍摄</div>
+                    <div class="task-item-price">
+                        <span>￥</span>300
+                    </div>
+                </div>
+            
+                <div class="task-item">
+                    <div class="task-item-img"><img src="img/task10.jpg" alt="任务图片"></div>
+                    <div class="task-item-title">客户服务任务：客户接待</div>
+                    <div class="task-item-price">
+                        <span>￥</span>180
+                    </div>
+                </div>
+            
+                <div class="task-item">
+                    <div class="task-item-img"><img src="img/task11.jpg" alt="任务图片"></div>
+                    <div class="task-item-title">翻译任务：文件翻译</div>
+                    <div class="task-item-price">
+                        <span>￥</span>350
+                    </div>
+                </div>
+            
+                <div class="task-item">
+                    <div class="task-item-img"><img src="img/task12.jpg" alt="任务图片"></div>
+                    <div class="task-item-title">咨询任务：法律咨询</div>
+                    <div class="task-item-price">
+                        <span>￥</span>600
+                    </div>
+                </div>
+            </div>
+            
+    
+                <!-- 清除浮动 -->
+                <div class="clear"></div>
+            </div>
+        </div>
+    
+        <!-- 联系方式部分 -->
+        <div class="concat">
+            <div class="container">
+                <div class="title">联系我们</div> <!-- 联系我们标题 -->
+    
+                <!-- 二维码展示 -->
+                <div>
+                    <div class="qrcode">
+                        <img src="img/qrcode.jpg" alt="公众号二维码" width="120"> <!-- 二维码图片 -->
+                        <div class="center">关注公众号</div> <!-- 二维码描述 -->
+                    </div>
+    
+                    <div class="qrcode">
+                        <img src="img/qrcode.jpg" alt="App二维码" width="120">
+                        <div class="center">下载app</div>
+                    </div>
+    
+                    <!-- 联系信息 -->
+                    <div class="info-box">
+                        <div class="line">
+                            <span class="title-small">QQ:</span> <!-- 联系方式标签 -->
+                            <span class="info">2222xxxx22</span> <!-- 具体的联系信息 -->
+                        </div>
+    
+                        <div class="line">
+                            <span class="title-small">邮箱:</span>
+                            <span class="info">xxxx@qq.com</span>
+                        </div>
+    
+                        <div class="line">
+                            <span class="title-small">微博:</span>
+                            <span class="info">xxxx</span>
+                        </div>
+    
+                        <div class="line">
+                            <span class="title-small">地址:</span>
+                            <span class="info">山东省青岛市xx区xx路2号</span>
+                        </div>
+                    </div>
+    
+                    <!-- 电话号码展示 -->
+                    <div class="phone">
+                        <i class="fas fa-phone-alt fa-3x"></i> <!-- 电话图标 -->
+                        <span>0537-88xxxxx88</span> <!-- 显示电话号码 -->
+                    </div>
+    
+                    <!-- 清除浮动 -->
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- 底部版权信息 -->
+        <footer class="center">
+            Copyright &copy; 2024 XXXXXXXX公司版权所有 <!-- 显示版权信息 -->
+        </footer>
+
+        <script>//宣传轮播图
+            var oLeft=document.getElementById('coreleft')
+            var oRight=document.getElementById('coreright')
+            var oImgList=document.getElementById('core1xia')
+            var index=0
+            var lock=true
+    
+            function turnRight(){
+                if(lock == false) return
+    
+                index++
+                oImgList.style.left= index * -520 + 'px'
+                oImgList.style.transition="0.5s"
+                if(index==4){
+                    index=0
+                    setTimeout(()=>{
+                        oImgList.style.left=0
+                        oImgList.style.transition="none"
+                    },500)
+                }
+                setCoreli()
+    
+                lock=false
+                setTimeout(()=>{
+                    lock = true
+                },500)
+            }
+            function turnLeft(){
+                if(lock == false) return
+    
+                index--
+                if(index==-1){
+                    oImgList.style.left= 4 * -520 + 'px'
+                    oImgList.style.transition="none"
+                    index=3
+                    setTimeout(()=>{
+                        oImgList.style.left= index * -520 + 'px'
+                        oImgList.style.transition="0.5s"
+                    },0)
+                }
+                else{
+                    oImgList.style.left= index * -520 + 'px'
+                }
+                setCoreli()
+    
+                lock=false
+                setTimeout(()=>{
+                    lock = true
+                },500)
+            }
+    
+            const coreli=document.querySelectorAll('.coreli')
+            function setCoreli(){
+                for(var i=0; i<coreli.length; i++){
+                    if(i==index){
+                        coreli[i].classList.add('coreli1')
+                    }else{
+                        coreli[i].classList.remove('coreli1')
+                    }
+                }
+            }
+            function DianjiCoreli(){
+                var n=event.target.getAttribute('data-n')
+                index=n
+                setCoreli()
+                oImgList.style.left= index * -520 + 'px'
+            }
+    
+            var timer=setInterval(turnRight, 1500)
+            var box=document.querySelector(".core1")
+            box.onmouseover=function(){
+                clearInterval(timer)
+            }
+            box.onmouseout=function(){
+                clearInterval(timer)
+                timer=setInterval(turnRight, 1500)
+            }
+        </script>
+        
+        <script>
+            var map = new BMapGL.Map("mapholder");
+            var point = new BMapGL.Point(116.404, 39.915);
+            map.centerAndZoom(point, 15);
+    
+            var dx1=document.querySelector(".bj")
+            function Xianshi(){
+                dx1.style.display="block"
+                dx2.style.display="block"
+            }
+    
+            var dx1=document.querySelector(".modal")
+            var dx2=document.querySelector("#mapholder")
+            function Xiaoshi(){
+                dx1.style.display="none"
+                dx2.style.display="none"
+            }
+        </script>
+  
+</div>
+
+
+  
+</body>
+</html>
