@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>首页</title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta name="author" content="order by mobanxiu.cn"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- 引入layui样式 -->
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <!-- 引入自定义样式 -->
+    <link rel="stylesheet" href="../../xznstatic/css/common.css"/>
+    <link rel="stylesheet" href="../../xznstatic/css/style.css"/>
+    <link rel="stylesheet" href="../../xznstatic/css/animate.css"/><!-- 动画效果 -->
+    <link rel="stylesheet" href="../../xznstatic/css/swiper.min.css"/>
+    <!-- 引入jQuery -->
+    <script src="../../xznstatic/js/jquery-1.11.3.min.js"></script>
+    <script src="../../xznstatic/js/jquery.SuperSlide.2.1.1.js"></script>
+    <!-- 引入Bootstrap样式 -->
+    <link rel="stylesheet" href="../../xznstatic/css/bootstrap.min.css"/>
+    <!-- 引入主题样式 -->
+    <link rel="stylesheet" href="../../css/theme.css"/>
+</head>
+<style>
+    /* 设置背景图片固定，覆盖整个页面 */
+    html::after {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        content: '';
+        display: block;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+    }
+
+    /* 设置轮播图容器的样式 */
+    #test1 {
+        overflow: hidden;  /* 防止溢出 */
+    }
+
+    /* 轮播图的指示器样式 */
+    #test1 .layui-carousel-ind li {
+        width: 20px;
+        height: 10px;
+        border-width: 0;
+        border-style: solid;
+        border-color: rgba(0, 0, 0, .3);
+        border-radius: 6px;
+        background-color: #f7f7f7;
+        box-shadow: 0 0 6px rgba(255, 0, 0, .8); /* 红色阴影效果 */
+    }
+
+    /* 激活的指示器样式 */
+    #test1 .layui-carousel-ind li.layui-this {
+        width: 30px;
+        height: 10px;
+        border-width: 0;
+        border-style: solid;
+        border-color: rgba(0, 0, 0, .3);
+        border-radius: 6px;
+    }
+
+    /* 轮播图指示器的位置 */
+    .layui-carousel-ind {
+        top: 0;
+    }
+
+    /* 指示器的具体位置 */
+    .layui-carousel-ind ul {
+        position: absolute;
+        bottom: 8px !important;  /* 确保指示器显示在底部 */
+        z-index: 10;
+    }
+
+    /* 设置标题区域的样式 */
+    .title {
+        padding: 10px 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    /* 设置标题文本的样式 */
+    .title span {
+        padding: 0 10px;
+        line-height: 1.4;
+    }
+
+    /* 设置盒子内的列表项样式 */
+    .box .list {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    /* 设置图片的样式，确保图片填充并覆盖 */
+    .box .list img {
+        width: 100%;
+        height: 100px;
+        display: block;
+        margin: 0 auto;
+        object-fit: cover;
+        max-width: 100%;
+    }
+
+    /* 设置每个列表项的名称样式 */
+    .box .list .name {
+        padding-top: 5px;
+        color: red;
+        font-size: 14px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    /* 设置每个列表项的尺寸 */
+    .box .list .list-item {
+        flex: 0 0 25%;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+
+    /* 设置不同列表项的显示比例 */
+    .list-item1 {
+        flex: 0 0 100%;
+    }
+    .list-item2 {
+        flex: 0 0 50%;
+    }
+    .list-item3 {
+        flex: 0 0 33.3%;
+    }
+    .list-item4 {
+        flex: 0 0 25%;
+    }
+    .list-item5 {
+        flex: 0 0 20%;
+    }
+
+    /* 限制文本内容的显示长度 */
+    .line1 {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+    }
+    .line2 {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+    .line3 {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+    }
+
+    /* 设置项目显示部分的样式 */
+    .project-sec .item {
+        margin-bottom: 30px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* 设置项目缩略图样式 */
+    .project-sec .item .project-thumb {
+        position: relative;
+        transition: all 0.4s ease-in-out 0s;
+        overflow: hidden;
+    }
+
+    /* 鼠标悬停时显示项目的覆盖层 */
+    .project-sec .item:hover .project-hoverlay {
+        visibility: visible;
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* 项目覆盖层样式 */
+    .project-hoverlay {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(174, 174, 174, 0.5);
+        transition: all 0.4s ease-in-out 0s;
+        visibility: hidden;
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    /* 项目标题样式 */
+    .project-sec .item:hover h2 {
+        background: #242424;
+    }
+
+    .project-sec .item h2 {
+        background: var(--publicMainColor, orange);
+        color: #fff;
+        display: inline-block;
+        padding: 10px 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    /* 项目图片样式 */
+    .project-sec .item img {
+        width: 100%;
+    }
+</style>
+
+<body>
+
+    <div class="background-container"></div> <!-- 背景图容器 -->
+<div id="app">
+    <div class="outer-container">
+        
+
+        <div class="banner-container">
+            <!-- 轮播图区域 -->
+            <div  class="core">
+                <div class="core1">
+                    <div class="core1xia clearfix" id="core1xia">
+                        <a><img src="../../img/lunbo1.jpg" alt=""></a>
+                        <a><img src="../../img/lunbo2.jpg" alt=""></a>
+                        <a><img src="../../img/lunbo3.jpg" alt=""></a>
+                    </div>
+                    <span class="coreleft" id="coreleft" onclick="turnLeft()">&lt;</span>
+                    <span class="coreright" id="coreright" onclick="turnRight()">&gt;</span>
+                    <ul class="corexia clearfix">
+                        <li class="coreli coreli1" data-n="0" onclick="DianjiCoreli()"></li>
+                        <li class="coreli" data-n="1" onclick="DianjiCoreli()"></li>
+                        <li class="coreli" data-n="2" onclick="DianjiCoreli()"></li>
+                    </ul>
+                </div>
+
+            </div>
+            
+
+            <!-- <div class="banner">
+                轮播图的内容，这里可以继续保持原有的代码 
+                <div class="layui-carousel" id="test1" style="height: 800px !important; position: relative;">
+                    <div carousel-item class="slideInLeft" style="visibility: visible; animation-duration: 3s; animation-name: slideInLeft;height: 800px">
+                        
+                        <div v-for="(item,index) in swiperList" :key="index">
+                            <img style="width: 100%; height: 100%; object-fit: cover;" :src="baseUrl + item.img" />
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        
+            <div class="right-panels">
+                <div class="panel">
+                    <a href="link-to-your-page-1" class="panel-link">
+                        <img src="../../img/gaoshiqiang1.jpg" alt="告示墙" class="panel-image">
+                        <!-- <span>告示墙</span> -->
+                    </a>
+                </div>
+                <div class="panel">
+                    <a href="link-to-your-page-2" class="panel-link">
+                        <img src="../../img/paihangbang1.jpg" alt="排行榜" class="panel-image">
+                        <!-- <span>排行榜</span> -->
+                    </a>
+                </div>
+                <div class="panel">
+                    <a href="link-to-your-page-3" class="panel-link">
+                        <img src="../../img/fujinshangjin1.jpg" alt="附近赏金" class="panel-image">
+                        <!-- <span>附近赏金</span> -->
+                    </a>
+                </div>
+                <div class="panel">
+                    <a href="link-to-your-page-4" class="panel-link">
+                        <img src="../../img/jianghureyi1.jpg" alt="江湖热议" class="panel-image">
+                        <!-- <span>江湖热议</span> -->
+                    </a>
+                </div>
+            </div>
+            
+
+            <div class="extra-content">
+                <div class="user">
+                    <div class="user-pic">
+                        <img src="../../img/user.png" alt="">
+                    </div>
+                    <span>Hi! &nbsp;你好</span>
+                    <div class="login">
+                        <button>浏览记录</button>
+                        <button>任务收藏</button>
+                    </div>
+                    <!-- <div class="menu">
+                        <ul>
+                            <li><span class="iconfont icon-dianpu"></span>任务收藏</li>
+                            <li><span class="iconfont icon-dianpu"></span>浏览记录</li>
+                        </ul>
+                    </div> -->
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- 内容区域 -->
+        <div id="content">
+            <!-- 
+<!-- 任务资讯公告展示
+<div style="display: flex;justify-content: center;background-repeat: no-repeat;background-position: center center;background-size: cover;">
+    <div class="box" style='width:100%;'>
+        <div style="width: 1200px;height: auto;margin: 0 auto;padding: 10px 0">
+            <div class="wow " data-wow-duration="2s" data-wow-delay="1s">
+                <div style="text-align: center;margin-bottom: 40px;">
+                    <h4>任务资讯公告展示</h4>
+                    <h3>DATA SHOW</h3>
+                    <!-- 显示任务展示的装饰条 -->
+                    <!-- <span style="width: 10%;height: 1px;background: var(--publicMainColor,ornage);display: block; margin:10px auto 0;"></span>
+                    <span style="width: 20%;height: 1px;background: var(--publicMainColor,ornage);display: block; margin:10px auto 0;"></span>
+                    <span style="width: 30%;height: 1px;background: var(--publicMainColor,ornage);display: block; margin:10px auto 0;"></span>
+                </div>
+            </div> -->
+            <!-- 显示任务公告 -->
+            <!-- <div class="wow " data-wow-duration="2s" data-wow-delay="1s">
+                < v-if="gonggaoList.length" class="new-list-9" style="display: flex;flex-wrap: wrap;align-items: center;">
+                    <!-- 遍历gonggaoList并显示公告信息 -->
+                    <!-- <div v-for="(item,index) in gonggaoList" v-if="index<6" :key="index" @click="jump('../gonggao/detail.html?id='+item.id)" :style='{"padding":"10px","boxShadow":"12px 12px 0px 0px var(--publicMainColor)","margin":"12px auto","borderColor":"var(--publicMainColor)","backgroundColor":"rgba(255, 255, 255, 1)","borderRadius":"0","borderWidth":"1px","width":"46%","borderStyle":"solid","height":"120px"}' class="new9-list-item" style="box-sizing: border-box;cursor: pointer;display: flex;width: 50%;flex-direction: column;">
+                        <div class="new9-list-body" style="display: flex;justify-content: space-between;align-items: center;"> -->
+                            <!-- 公告标题 -->
+                            <!-- <div :style='{"padding":"0","boxShadow":"0 0 6px var(--publicMainColor)","margin":"0","borderColor":"#ccc","backgroundColor":"rgba(255, 215, 0, 0)","color":"rgba(0, 0, 0, 1)","borderRadius":"4px","borderWidth":"0","width":"auto","lineHeight":"28px","fontSize":"15px","borderStyle":"solid"}' style="box-sizing: border-box;flex:1" class="new9-list-item-title line1">{{ item.gonggaoName }}</div>
+                            公告时间 -->
+                            <!-- <div :style='{"padding":"0 6px","boxShadow":"0 0 0px var(--publicSubColor)","margin":"0px -6px 0px 0px","borderColor":"#ccc","backgroundColor":"var(--publicSubColor)","color":"#fff","borderRadius":"4px","borderWidth":"0","width":"auto","lineHeight":"21px","fontSize":"12px","borderStyle":"solid"}' style="box-sizing: border-box;" class="new9-list-item-time">{{ item.insertTime.split(' ')[0] }}</div>
+                        </div> --> 
+                        <!-- 公告内容 -->
+                        <!-- <div :style='{"padding":"0","boxShadow":"0 0 6px rgba(0,0,0,0)","margin":"5px 0 0 0","borderColor":"#ccc","backgroundColor":"rgba(255, 215, 0, 0)","color":"rgba(15, 0, 0, 1)","borderRadius":"0","borderWidth":"0","width":"100%","lineHeight":"21px","fontSize":"12px","borderStyle":"solid"}' style="box-sizing: border-box;" class="new9-list-item-descript line2" v-html="myFilters(item.gonggaoContent)"></div>
+                        <div style="display: flex"> -->
+                            <!-- 公告标签 -->
+                            <!-- <div :style='{"padding":"0 10px","boxShadow":"0 0 6px rgba(0,0,0,.3)","margin":"25px 0 0 0","borderColor":"rgba(204, 204, 204, 1)","backgroundColor":"var(--publicMainColor)","color":"rgba(255, 255, 255, 1)","borderRadius":"4px","borderWidth":"0","width":"auto","lineHeight":"18px","fontSize":"12px","text":"新闻动态","borderStyle":"solid"}' class="new9-list-item-identification">{{ item.gonggaoValue }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:40px;text-align: center;"> -->
+                    <!-- 查看更多公告按钮 -->
+                    <!-- <button @click="jump('../gonggao/list.html')" style="display: block;cursor: pointer;" type="button" :style='{"padding":"0 15px","boxShadow":"0 0 6px rgba(255,0,0,0)","margin":"4px auto","borderColor":"#ccc","backgroundColor":"#fff","color":"rgba(160, 67, 26, 1)","borderRadius":"6px","borderWidth":"0","width":"auto","fontSize":"14px","borderStyle":"solid","height":"34px"}'>
+                        查看更多
+                        <i :style='{"isshow":true,"padding":"0 0 0 1px","fontSize":"14px","color":"rgba(160, 67, 26, 1)"}' class="layui-icon layui-icon-next"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->
+
+
+
+<div class="category-bar">
+    <!-- 左侧部分 - 个性推荐 -->
+    <div class="category-left">
+        <div class="title">任务推荐</div> <!-- 左侧部分标题 -->
+    </div>
+
+    <!-- 右侧部分 - 分类栏 -->
+    <div class="category-right">
+        <!-- 第一行：线上任务 -->
+        <div class="category-row">
+            <div class="category-item">线上任务</div>
+            <div class="category-item">内容创作</div>
+            <div class="category-item">编程开发</div>
+            <div class="category-item">咨询答疑</div>
+            <div class="category-item">创意设计</div>
+        </div>
+
+        <!-- 第二行：线下任务 -->
+        <div class="category-row">
+            <div class="category-item">线下任务</div>
+            <div class="category-item">助理跑腿</div>
+            <div class="category-item">教学辅导</div>
+            <div class="category-item">日常生活</div>
+            <div class="category-item">约拍化妆</div>
+        </div>
+    </div>
+
+    <!-- 新增的板块部分，位于右侧 -->
+    <div class="extra-panel">
+        <!-- 这里放置您想展示的内容，例如额外的推荐板块等 -->
+        <p>帮派!助你结束烦恼！！</p>
+    </div>
+</div>
+
+
+            <!-- 任务展示区域 -->
+            <!-- <div style="display: flex;justify-content: center;background-repeat: no-repeat;background-position: center center;background-size: cover;">
+                <div class="box" style='width:100%;'>
+                    <div style="width: 1200px;height:auto;margin: 0 auto;padding: 10px 0">
+                        <div class="wow " data-wow-duration="2s" data-wow-delay="1s">
+                            <div style="text-align: center;margin-bottom: 40px;">
+                                <h4>任务推荐</h4> -->
+                                <!-- 显示任务展示的装饰条 -->
+                                <!-- <span style="width: 8%;height: 2px;background: var(--publicMainColor,ornage);display: block; margin:5px auto 0;"></span>
+                                <span style="width: 12%;height: 2px;background: var(--publicMainColor,ornage);display: block; margin:5px auto 0;"></span>    -->
+                                <!-- <span style="width: 30%;height: 1px;background: var(--publicMainColor,ornage);display: block; margin:10px auto 0;"></span> -->
+                            <!-- </div>
+                        </div> -->
+
+                        
+                        <div class="wow " data-wow-duration="2s" data-wow-delay="1s">
+
+
+                            <div class="project-sec pt-100 pb-70">
+                                <div class="row" style="display: flex; flex-wrap: wrap; gap: 2px; justify-content: space-between;"> <!-- Added justify-content for spacing -->
+                                    <!-- 遍历任务列表，展示每个任务 -->
+                                    <div v-for="(item, index) in renwuList" v-bind:key="index" class="list-item4 list-item3B" style="flex: 1 1 22%; box-sizing: border-box; margin-bottom: 2px;">
+                                        <div class="item" @click="jumpCheck('../renwu/detail.html?id='+item.id , item.aaaaaaaaaa == null?'':item.aaaaaaaaaa , item.shangxiaTypes == null?'':item.shangxiaTypes)">
+                                            <div class="project-thumb">
+                                                <!-- 显示任务的图片 -->
+                                                <img :src="item.renwuPhoto ? baseUrl + item.renwuPhoto.split(',')[0] : ''" style="height: 250px;width:100%; padding-right: 10px; padding-bottom: 2px; box-sizing: border-box;"/>
+                                                <div class="project-hoverlay">
+                                                    <div class="project-text">
+                                                        <!-- 显示任务的金额 -->
+                                                        <h3 v-if="item.renwuNewMoney">
+                                                            {{item.renwuNewMoney}} RMB
+                                                        </h3>
+                                                        <h3 v-else>
+                                                            {{item.renwuValue}}
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 任务标题 -->
+                                            <h3 style="margin-top: 10px; margin-bottom: 20px; text-align: center;">{{item.renwuName}}</h3> <!-- Added center alignment to the title -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+
+                            
+                            <div style="text-align: center;margin-top: 10px;">
+                              <!-- 查看更多任务按钮 -->
+                                    <button @click="jump('../renwu/list.html')" 
+                                    style="display: block; cursor: pointer; 
+                                        margin: 10px auto; /* 使按钮水平居中，并给顶部和底部添加间距 */
+                                        padding: 0 1px; 
+                                        box-shadow: 0 0 6px rgba(255, 0, 0, 0); 
+                                        border-color: #ccc; 
+                                        background-color: #fff; 
+                                        color: rgb(249, 67,26,1); 
+                                        border-radius: 6px; 
+                                        border-width: 0; 
+                                        width: auto; 
+                                        font-size: 18px; /* 增大字体 */
+                                        border-style: solid; 
+                                        height: 40px; /* 增大按钮高度 */
+                                        position: relative; /* 设置为相对定位，这样可以使用顶部定位 */
+
+                                    ">
+                                    查看更多
+                                    <i :style='{"isshow":true,"padding":"0 0 0 1px","fontSize":"18px","color":"rgba(249, 67, 26, 1)"}' 
+                                    class="layui-icon layui-icon-next"></i>
+                                    </button>
+
+                            </div>
+
+            <!-- 联系方式部分 -->
+            <div class="concat">
+                <div class="container4">
+                    <div class="title4">联系我们</div> <!-- 联系我们标题 -->
+        
+                    <!-- 二维码展示 -->
+                        
+                        <div class="qrcode-box">
+                            <div>
+                                <div class="qrcode">
+                                    <img src="../../img/qrcode.jpg" alt="公众号二维码" width="120"> <!-- 二维码图片 -->
+
+                                <div class="center">关注公众号</div> <!-- 二维码描述 -->
+                            </div>
+            
+                            <div class="qrcode">
+                                <img src="../../img/qrcode.jpg" alt="App二维码" width="120">
+                                <div class="center">下载app</div>
+                            </div>
+                        </div>
+        
+                        <!-- 联系信息 -->
+                        <div class="info-box">
+                            <div class="line">
+                                <span class="title-small">QQ:</span> <!-- 联系方式标签 -->
+                                <span class="info">2285416917</span> <!-- 具体的联系信息 -->
+                            </div>
+        
+                            <div class="line">
+                                <span class="title-small">邮箱:</span>
+                                <span class="info">885033946@qq.com</span>
+                            </div>
+        
+                            <div class="line">
+                                <span class="title-small">微博:</span>
+                                <span class="info">xxxx</span>
+                            </div>
+        
+                            <div class="line">
+                                <span class="title-small">地址:</span>
+                                <span class="info">浙江省宁波市江北区xx路2号</span>
+                            </div>
+                        </div>
+        
+                        <!-- 电话号码展示 -->
+                        <div class="phone">
+                            <i class="fas fa-phone-alt fa-3x"></i> <!-- 电话图标 -->
+                            <span>0537-669285</span> <!-- 显示电话号码 -->
+                        </div>
+        
+                        <!-- 清除浮动 -->
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+                
+
+                    <!-- 底部版权信息 -->
+                    <footer class="center">
+                        Copyright &copy; 2024 XXXXXXXX公司版权所有 <!-- 显示版权信息 -->
+                    </footer>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>        
+    </div>
+</div>
+
+
+<script src="../../xznstatic/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../layui/layui.js"></script>
+<script src="../../js/vue.js"></script>
+<!-- 引入element组件库 -->
+<script src="../../xznstatic/js/element.min.js"></script>
+<!-- 引入element样式 -->
+<link rel="stylesheet" href="../../xznstatic/css/element.min.css">
+<script src="../../xznstatic/js/swiper.min.js"></script>
+<script src="../../js/config.js"></script>
+<script src="../../modules/config.js"></script>
+<script src="../../js/utils.js"></script>
+<script src="../../xznstatic/js/wow.min.js"></script>
+
+<script type="text/javascript">
+    // 动画效果初始化
+    new WOW().init();
+
+    // Vue原型方法，用于处理公告内容的过滤
+    Vue.prototype.myFilters = function (msg) {
+        // 如果msg为空或null，返回空字符串
+        if(msg==null || msg==""){
+            return "";
+        }else if (msg.length>20){
+            // 如果消息长度大于20，截取前20个字符，并在后面加上 "..."
+            msg.replace(/\n/g, "<br>");
+            return msg.substring(0,20)+"......";
+        }else{
+            // 否则返回原始消息
+            return msg.replace(/\n/g, "<br>");
+        }
+    };
+
+    var vue = new Vue({
+        el: '#app',  // 将Vue实例挂载到id为app的元素上
+        data: {
+            swiperList: [],  // 用于存储轮播图的数据
+            baseUrl:"",  // 基础URL
+            gonggaoList: [],  // 公告列表
+            gonggaoTypesList: [],  // 公告类型列表
+            renwuList: [],  // 任务列表
+            renwuTypesList: [],  // 任务类型列表
+            // 类型查询条件
+            gonggaoTypes: "",  
+            renwuTypes: "",
+        },
+        filters: {
+            // 对新闻内容进行过滤，去除HTML标签，并限制内容长度
+            newsDesc: function (val) {
+                if (val) {
+                    val = val.replace(/<[^<>]+>/g, '').replace(/undefined/g, ''); // 去除HTML标签
+                    if (val.length > 60) {
+                        // 如果内容长度超过60个字符，截取前60个字符
+                        val = val.substring(0, 60);
+                    }
+                    return val;
+                }
+                return '';
+            }
+        },
+        methods: {
+            jump(url) {
+                // 页面跳转方法
+                jump(url)
+            },
+            jumpCheck(url, check1, check2) {
+                // 任务详情页跳转前的检查方法
+                // 检查任务是否已删除
+                if (check1 == "2" || check1 == 2) {  // 逻辑删除字段
+                    layui.layer.msg("已经被删除", {
+                        time: 2000,
+                        icon: 2  // 显示失败图标
+                    });
+                    return false;
+                }
+                // 检查任务是否下架
+                if (check2 == "2" || check2 == 2) {  // 是否下架字段
+                    layui.layer.msg("已经下架", {
+                        time: 2000,
+                        icon: 2  // 显示失败图标
+                    });
+                    return false;
+                }
+                // 通过检查后跳转到任务详情页面
+                this.jump(url);
+            }
+        }
+    });
+
+    layui.use(['layer', 'form', 'element', 'carousel', 'http', 'jquery'], function () {
+        var layer = layui.layer;  // 引入layui的layer模块
+        var element = layui.element;  // 引入layui的element模块
+        var form = layui.form;  // 引入layui的form模块
+        var carousel = layui.carousel;  // 引入layui的轮播模块
+        var http = layui.http;  // 引入http模块
+        var jquery = layui.jquery;  // 引入jQuery
+
+        vue.baseUrl = http.baseurl;  // 设置基础URL
+
+        // 获取轮播图数据
+        http.request('config/list', 'get', {
+            page: 1,
+            limit: 5  // 请求5条数据
+        }, function (res) {
+            if (res.data.list.length > 0) {
+                let swiperList = [];
+                res.data.list.forEach(element => {
+                    if (element.value != null) {
+                        swiperList.push({
+                            img: element.value  // 轮播图图片地址
+                        });
+                    }
+                });
+
+                vue.swiperList = swiperList;  // 更新vue中的swiperList数据
+
+                vue.$nextTick(() => {
+                    // 使用layui的carousel模块初始化轮播图
+                    carousel.render({
+                        elem: '#test1',  // 轮播图容器ID
+                        width: '100%',  // 轮播图宽度为100%
+                        height: '100%',  // 轮播图高度为100%
+                        arrow: 'hover',  // 鼠标悬浮时显示箭头
+                        anim: 'default',  // 默认动画
+                        autoplay: 'true',  // 启用自动播放
+                        interval: '3000',  // 每3秒切换一次
+                        indicator: 'inside'  // 指示器位置在内部
+                    });
+                });
+            }
+        });
+
+        // 公告类型查询
+        gonggaoSelect();
+
+        // 动态类型搜索
+        $(document).on("click", ".gonggaoTypes-search", function(e) {
+            vue.gonggaoTypes = $(this).attr('index');  // 获取被点击的公告类型
+            gonggaoSelect();  // 重新查询公告
+        });
+
+        // 获取公告类型列表
+        gonggaoTypesSelect();
+
+        // 任务查询
+        renwuSelect();
+
+        // 动态类型搜索
+        $(document).on("click", ".renwuTypes-search", function(e) {
+            vue.renwuTypes = $(this).attr('index');  // 获取被点击的任务类型
+            renwuSelect();  // 重新查询任务
+        });
+
+        // 获取任务类型列表
+        renwuTypesSelect();
+
+        // 获取公告类型
+        function gonggaoTypesSelect() {
+            http.request("dictionary/page?page=1&limit=100&sort=&order=&dicCode=gonggao_types",'get',{},function(res) {
+                if (res.code == 0) { vue.gonggaoTypesList = res.data.list; }  // 更新公告类型列表
+            });
+        }
+
+        // 获取公告列表
+        function gonggaoSelect() {
+            http.request('gonggao/list', 'get', {
+                page: 1,
+                limit: 8,
+                gonggaoTypes: vue.gonggaoTypes,  // 按类型查询公告
+                order: "desc",  // 按照降序排序
+            }, function (res) {
+                vue.gonggaoList = res.data.list;  // 更新公告列表
+            });
+        }
+
+        // 获取任务类型
+        function renwuTypesSelect() {
+            http.request("dictionary/page?page=1&limit=100&sort=&order=&dicCode=renwu_types",'get',{},function(res) {
+                if (res.code == 0) { vue.renwuTypesList = res.data.list; }  // 更新任务类型列表
+            });
+        }
+
+        // 获取任务列表
+        function renwuSelect() {
+            http.request('renwu/gexingtuijian', 'get', {
+                page: 1,
+                limit: 12,
+                sort: "renwu_clicknum",  // 按点击量排序
+                renwuDelete: 1,  // 只查询未删除的任务
+                renwuTypes: vue.renwuTypes,  // 按类型查询任务
+                order: "desc",  // 按照降序排序
+            }, function (res) {
+                vue.renwuList = res.data.list;  // 更新任务列表
+            });
+        }
+    });
+
+    // 初始化轮播图滑动效果
+    window.xznSlide = function () {
+        // jQuery(".banner").slide({mainCell:".bd ul",autoPlay:true,interTime:5000});
+        jQuery("#ifocus").slide({
+            titCell: "#ifocus_btn li",
+            mainCell: "#ifocus_piclist ul",
+            effect: "leftLoop",  // 设置轮播效果为循环
+            delayTime: 200,  // 设置延迟时间
+            autoPlay: true,  // 启用自动播放
+            triggerTime: 0  // 设置触发时间
+        });
+        jQuery("#ifocus").slide({titCell: "#ifocus_btn li", mainCell: "#ifocus_tx ul", delayTime: 0, autoPlay: true});
+        jQuery(".product_list").slide({
+            mainCell: ".bd ul",
+            autoPage: true,  // 自动分页
+            effect: "leftLoop",  // 设置循环效果
+            autoPlay: true,  // 启用自动播放
+            vis: 5,  // 显示5个项目
+            trigger: "click",  // 点击触发轮播
+            interTime: 4000  // 设置轮播间隔时间
+        });
+    };
+</script>
+
+<script src="../../xznstatic/js/index.js"></script>
+
+
+<script>//宣传轮播图
+// 轮播图控制
+var oLeft = document.getElementById('coreleft');
+var oRight = document.getElementById('coreright');
+var oImgList = document.getElementById('core1xia');
+var index = 0;
+var lock = true;
+
+function turnRight() {
+    if (lock == false) return;
+
+    index++;
+    if (index >= oImgList.children.length) { // 如果索引超出，重置为0
+        index = 0;
+    }
+    oImgList.style.left = index * -100 + '%'; // 设置为百分比，确保图片滑动符合容器宽度
+    oImgList.style.transition = "0.5s";
+    setCoreli();
+
+    lock = false;
+    setTimeout(function () {
+        lock = true;
+    }, 500);
+}
+
+function turnLeft() {
+    if (lock == false) return;
+
+    index--;
+    if (index < 0) { // 如果索引小于0，设置为最后一张图片
+        index = oImgList.children.length - 1;
+    }
+    oImgList.style.left = index * -100 + '%'; // 设置为百分比，确保图片滑动符合容器宽度
+    oImgList.style.transition = "0.5s";
+    setCoreli();
+
+    lock = false;
+    setTimeout(function () {
+        lock = true;
+    }, 500);
+}
+
+const coreli = document.querySelectorAll('.coreli');
+function setCoreli() {
+    for (var i = 0; i < coreli.length; i++) {
+        if (i == index) {
+            coreli[i].classList.add('coreli1');
+        } else {
+            coreli[i].classList.remove('coreli1');
+        }
+    }
+}
+
+function DianjiCoreli() {
+    var n = event.target.getAttribute('data-n');
+    index = n;
+    setCoreli();
+    oImgList.style.left = index * -100 + '%';
+}
+
+var timer = setInterval(turnRight, 1500);
+var box = document.querySelector(".core1");
+box.onmouseover = function () {
+    clearInterval(timer);
+};
+box.onmouseout = function () {
+    clearInterval(timer);
+    timer = setInterval(turnRight, 1500);
+};
+
+</script>
+</body>
+</html>

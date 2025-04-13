@@ -1,0 +1,1139 @@
+
+@charset "utf-8";  /* 定义字符编码为utf-8 */
+
+body {
+    box-sizing: border-box; /* 确保左右边距不会影响布局 */
+    margin-top: 120px;
+}
+
+.outer-container{
+    padding-left: 80px;
+    padding-right: 180px;
+    z-index: 1;  /* 保证内容层级在背景图之上 */
+    position: relative;  /* 使内容层可正常滚动 */
+}
+
+.background-container {
+    position: fixed;  /* 固定背景图片 */
+    top: 0;           /* 背景图片从视口顶部开始 */
+    left: 0;          /* 背景图片从视口左侧开始 */
+    width: 100vw;     /* 背景图片宽度为视口宽度 */
+    height: 100vh;    /* 背景图片高度为视口高度 */
+    background-image: url('../../img/beijing1.jpg');  /* 设置背景图 */
+    background-position: center;  /* 背景居中显示 */
+    background-size: cover;  /* 背景图按比例缩放，确保填充整个区域 */
+    z-index: -1; /* 确保背景图片在页面内容下方 */
+}
+
+/* .banner容器 */
+.banner-container{
+    display: flex; /* 使用flex布局，确保三大块并排显示 */
+    width: 100%; /* 容器宽度为100% */
+    height: 250px; /* 设置容器高度 */
+    margin-top: 0px; /* 给整个banner添加上边距，与header保持一致 */
+}
+
+/* 轮播图外层容器（如果有其他容器，可保持原样） */
+.core {
+    width: 640px; /* 修改为原来的80% */
+    margin-left: 10px;
+    margin-top: 10px;
+    float: left;
+    height: 240px; /* 修改为原来的80% */
+}
+
+/* 轮播图容器 */
+.core1 {
+    width: 640px; /* 修改为原来的80% */
+    height: 240px; /* 修改为原来的80% */
+    position: relative;
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* 图片容器，包含所有图片 */
+.core1 .core1xia {
+    width: 3200px * 0.8; /* 如果原来是3200px（800px * 4张图片），则现在改为2560px */
+    width: 2560px; 
+    height: 240px; /* 修改为原来的80% */
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: 0.5s;
+}
+
+/* 每一张图片的样式 */
+.core1 .core1xia img {
+    width: 640px; /* 修改为原来的80% */
+    height: 240px; /* 修改为原来的80% */
+    object-fit: cover;
+    float: left;
+}
+
+
+/* 左右箭头按钮 */
+.core1 .coreleft,
+.core1 .coreright {
+    display: block; /* 显示为块级元素 */
+    height: 30px; /* 设置箭头按钮的高度 */
+    width: 20px; /* 设置箭头按钮的宽度 */
+    line-height: 30px; /* 垂直居中对齐箭头 */
+    color: #fff; /* 设置箭头的文字颜色为白色 */
+    background-color: rgba(0, 0, 0, 0.3); /* 设置背景色为黑色并加上一点透明度 */
+    text-align: center; /* 文本水平居中对齐 */
+    display: none; /* 默认不显示箭头 */
+    font-size: 15px; /* 设置字体大小 */
+    position: absolute; /* 设置为绝对定位 */
+    top: 135px; /* 将箭头按钮垂直居中 */
+}
+
+/* 左箭头的样式 */
+.core1 .coreleft {
+    left: 0; /* 左箭头在容器的左侧 */
+    border-top-right-radius: 20px; /* 设置右上和右下的圆角 */
+    border-bottom-right-radius: 20px;
+}
+
+/* 鼠标悬停时左箭头的样式 */
+.core1 .coreleft:hover {
+    background-color: rgba(0, 0, 0, 0.5); /* 鼠标悬停时背景色加深 */
+}
+
+/* 右箭头的样式 */
+.core1 .coreright {
+    right: 0; /* 右箭头在容器的右侧 */
+    border-top-left-radius: 20px; /* 设置左上和左下的圆角 */
+    border-bottom-left-radius: 20px;
+}
+
+/* 鼠标悬停时右箭头的样式 */
+.core1 .coreright:hover {
+    background-color: rgba(0, 0, 0, 0.5); /* 鼠标悬停时背景色加深 */
+}
+
+/* 当鼠标悬停在轮播图容器上时，显示左右箭头 */
+.core1:hover .coreleft,
+.core1:hover .coreright {
+    display: block; /* 显示左右箭头 */
+}
+
+/* 底部指示器容器 */
+.core1 .corexia {
+    border-radius: 10px; /* 设置底部指示器的圆角 */
+    position: absolute; /* 绝对定位 */
+    bottom: 15px; /* 使底部指示器距离容器底部15px */
+    height: 13px; /* 指示器的高度 */
+    text-align: center; /* 文本水平居中 */
+    font-size: 0; /* 字体大小设置为0，主要用于显示小圆点 */
+    left: 50%; /* 将底部指示器水平居中 */
+    margin-left: -39px; /* 调整指示器的水平位置，使其真正居中 */
+    background-color: rgba(255, 255, 255, 0.3); /* 设置底部指示器的背景色 */
+}
+
+/* 每个底部指示器的小圆点样式 */
+.core1 .corexia .coreli {
+    padding-top: 8px; /* 调整小圆点的上边距 */
+    width: 8px; /* 设置小圆点的宽度 */
+    height: 8px; /* 设置小圆点的高度 */
+    border-radius: 50%; /* 将小圆点设置为圆形 */
+    background: #fff; /* 设置小圆点的颜色为白色 */
+    float: left; /* 使小圆点横向排列 */
+    margin: 3px; /* 设置小圆点之间的间距 */
+}
+
+/* 当前选中的小圆点样式 */
+.core1 .corexia .coreli1 {
+    background-color: #2c2a29; /* 设置选中小圆点的背景色 */
+}
+
+/* 轮播图容器 */
+/* .banner{
+    width: 0px; 
+    height: 300px; 
+    position: relative; 
+    cursor: pointer; 
+    border-radius: 12px; 
+    overflow: hidden;
+    margin-top: 10px; 
+
+} */
+
+/* 轮播图样式 */
+
+.banner .bd li {
+    width: 100%;  /* 设置每个轮播项的宽度为100% */
+    text-align: center; /* 设置轮播项内容居中 */
+}
+
+/* 轮播图指示器 */
+.banner .hd {
+    position: absolute;  /* 设置为绝对定位 */
+    bottom: 46px;  /* 距离底部46px */
+    width: 100%;  /* 设置指示器宽度为100% */
+    text-align: center;  /* 设置指示器内容居中 */
+    z-index: 10000;  /* 设置层级，确保在最上层 */
+}
+
+.banner .hd ul {
+    width: 100%;  /* 设置指示器的宽度为100% */
+    text-align: center;  /* 设置指示器列表居中 */
+}
+
+.banner .hd li {
+    display: inline-block;  /* 设置指示器项为行内块元素 */
+    width: 10px;  /* 设置每个指示器的宽度为10px */
+    height: 10px;  /* 设置每个指示器的高度为10px */
+    background: #1e0f00;  /* 设置指示器的默认背景色 */
+    border-radius: 5px;  /* 设置指示器的圆角 */
+    margin: 0 3px;  /* 设置指示器项的左右外边距 */
+}
+
+/* 激活的指示器项 */
+.banner .hd li.on {
+    background: #fff;  /* 设置激活项的背景为白色 */
+}
+
+/* 引入 Google Fonts 中的 Dancing Script（行楷） */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+/* 引入 Google Fonts 中的 Pacifico（草书） */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+/* 右侧四个板块容器 */
+.right-panels {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 35%;
+    padding: 20px;
+    margin-top: 1px;
+}
+
+/* 每个板块的样式 */
+.panel {
+    flex: 1 1 38%;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    height: 100px;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer; /* 鼠标悬停时显示手型 */
+    border-radius: 8px; /* 让板块有点圆角 */
+    overflow: hidden; /* 防止图片溢出 */
+}
+
+/* 面板中的图片样式 */
+.panel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 保持图片比例，并填满容器 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1; /* 确保图片在文字后面 */
+}
+
+/* 面板文字的样式，应用草书或行楷字体 */
+.panel span {
+    font-size: 30px; /* 增大字体大小 */
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%; /* 使文字水平居中 */
+    transform: translate(-50%, -50%); /* 使文字垂直居中 */
+    z-index: 1;
+    color: #0f5301;
+    font-family: 'Pacifico', cursive; /* 使用草书字体 */
+    transition: color 0.3s ease; /* 添加颜色过渡效果 */
+}
+
+/* 鼠标悬停时文字颜色变化 */
+.panel:hover span {
+    color: #0a2c47; /* 设置悬停时的颜色 */
+}
+
+/* 链接去掉下划线 */
+.panel-link {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* 鼠标悬停时，让整个面板有动画效果 */
+.panel:hover {
+    transform: scale(1.2); /* 放大 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+}
+
+
+
+/* 第三块：额外内容 */
+/* 第三块：额外内容 */
+.extra-content {
+    flex: 1; /* 占据剩余空间 */
+    height: 90%; /* 高度填满父容器 */
+    background-color: rgb(113, 234, 198); /* 设置背景颜色 */
+    color: white; /* 设置文本颜色 */
+    display: flex; /* 使用Flexbox布局 */
+    flex-direction: column; /* 子元素纵向排列 */
+    justify-content: center; /* 垂直居中（对纵向有效） */
+    align-items: center; /* 水平居中（对横向有效） */
+    margin-top: 20px; /* 上边距 */
+    border-radius: 50% / 100%; /* 竖直椭圆形 */
+}
+
+/* 将用户头像在额外板块中居中 */
+.extra-content .user-pic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px; /* 如果需要和下面其他内容分隔一些距离 */
+}
+
+/* 用户头像样式 */
+.user-pic img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* 形成圆形 */
+}
+
+/* 用户文字 */
+/* 用户文字 */
+.user span {
+    font-size: 20px; /* 设置字体大小 */
+    color: #000000; /* 设置文字颜色，改为橙红色 */
+    margin-top: 10px; /* 图片和文字之间的间距 */
+    text-align: center; /* 确保文字水平居中 */
+    display: block; /* 使文字成为块级元素，允许 text-align 生效 */
+}
+
+
+/* 按钮容器 */
+.login {
+    display: flex; /* 使用flex布局 */
+    flex-direction: row; /* 按钮横排排列 */
+    align-items: center; /* 垂直居中按钮 */
+    justify-content: center; /* 水平居中 */
+    margin-top: 10px; /* 调整上边距，控制按钮和文字的距离 */
+}
+
+/* 按钮样式 */
+.login button {
+    width: 80px; /* 设置按钮宽度 */
+    height: 36px; /* 设置按钮高度 */
+    border: 0;
+    border-radius: 10px; /* 设置按钮圆角 */
+    color: #fff;
+    font-size: 14px; /* 设置字体大小 */
+    margin-right: 10px; /* 按钮之间的间距 */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* 添加平滑过渡效果 */
+}
+
+/* 第一个按钮 */
+.login button:nth-child(1) {
+    background-color: #02472d; /* 设置背景色 */
+}
+
+/* 第二个按钮 */
+.login button:nth-child(2) {
+    background-color: #074e6e; /* 设置背景色 */
+}
+
+/* 悬停效果：第一个按钮的背景色变化 */
+.login button:nth-child(1):hover {
+    background-color: #036f43; /* 悬停时的背景色 */
+    transform: scale(1.1); /* 鼠标悬停时按钮放大 */
+}
+
+/* 悬停效果：第二个按钮的背景色变化 */
+.login button:nth-child(2):hover {
+    background-color: #2b65a5; /* 悬停时的背景色 */
+    transform: scale(1.1); /* 鼠标悬停时按钮放大 */
+}
+
+
+/* 第三个按钮 */
+/* .center .login button:nth-child(3) {
+    border: 1px solid #ff5000;
+    background: transparent;
+    color: #ff5000;
+} */
+
+/* .menu ul {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.menu ul li {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+} */
+
+/* 子标题样式 */
+.title4 {
+    font-size: 20px;                /* 设置子标题字体大小 */
+    font-weight: bold;              /* 设置字体加粗 */
+    text-align: center;             /* 子标题居中对齐 */
+    padding: 15px 0;                /* 设置上下内边距 */
+}
+
+/* 给标题加上下横线 */
+.title4::after {
+    content: '';                    /* 使用伪元素 */
+    background: #1c54f0;               /* 设置横线颜色为黑色 */
+    width: 100px;                   /* 设置横线宽度 */
+    height: 3px;                    /* 设置横线高度 */
+    display: block;                 /* 使其成为块级元素 */
+    margin: 5px auto;              /* 设置横线的上下外边距，并居中显示 */
+}
+
+
+
+/* 分类栏的整体容器 */
+.category-bar {
+    display: flex; /* 使用 Flexbox 布局 */
+    width: 100%; /* 宽度为100% */
+    height: 80px;
+    margin: 30px 0px; /* 上下边距20px，左右边距200px */
+    padding: 0; /* 去除默认的内边距 */
+}
+
+/* 左侧部分 - 个性推荐 */
+.category-left {
+    margin-right: 20px;
+    flex: 0 0 10%; /* 左侧部分占用20%的宽度 */
+    background-color: #333131; /* 背景色 */
+    color: #ffffff; /* 文字颜色 */
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    font-size: 18px; /* 字体大小增大 */
+    font-weight: bold; /* 加粗字体 */
+    border-radius: 10px; /* 设置圆角 */
+    height: 100%; /* 使高度填满父容器 */
+    padding: 10px 15px; /* 内边距 */
+}
+
+/* 右侧部分 - 分类栏 */
+.category-right {
+    flex: 1; /* 右侧部分占据剩余空间 */
+    display: flex;
+    flex-direction: column; /* 纵向排列每行 */
+    justify-content: space-between; /* 确保每行的内容分布均匀 */
+}
+
+/* 每一行分类的容器 */
+.category-row {
+    display: flex; /* 使用 Flexbox 布局 */
+    justify-content: space-between; /* 横向分布各个项 */
+    margin-bottom: 5px; /* 行间距减少 */
+}
+
+/* 每一项分类的样式 */
+.category-item {
+    background-color: #69d198; /* 背景色为白色 */
+    margin-right: 8px; /* 右边间距 */
+    padding: 12px 16px; /* 内边距增大 */
+    border-radius: 8px; /* 圆角 */
+    color: #027386;
+    font-size: 12px; /* 字体大小增大 */
+    font-weight: bold; /* 加粗字体 */
+    text-align: center; /* 内容居中 */
+    cursor: pointer; /* 鼠标指针效果 */
+    transition: background-color 0.3s; /* 增加过渡效果 */
+}
+
+
+.extra-panel {
+    width: 40%; /* 额外内容宽度占40% */
+    height: 100px; /* 高度占90% */
+    background-color: #f5f5f5; /* 设置背景色 */
+    border-radius: 10px; /* 设置圆角 */
+    padding: 15px; /* 设置内边距 */
+    margin-left: 10px; /* 左侧边距 */
+    display: flex;
+    justify-content: center; /* 水平居中对齐 */
+    align-items: center; /* 垂直居中对齐 */
+    font-size: 16px; /* 字体大小 */
+    color: #333; /* 文字颜色 */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 设置阴影效果 */
+}
+
+
+/* 鼠标悬停效果 */
+.category-item:hover {
+    background-color: #ddd; /* 悬停时的背景色 */
+    transform: scale(1.1); /* 放大 */
+}
+
+
+/* 新增的板块部分 */
+.extra-panel {
+    flex: 1; /* 占据剩余空间 */
+    background: url('../../img/xuanchuan.jpg') no-repeat center center; /* 设置背景图片 */
+    background-size: cover; /* 图片覆盖容器 */
+    padding: 15px; /* 设置内边距 */
+    border-radius: 8px; /* 设置圆角 */
+    text-align: left; /* 文字左对齐 */
+    position: relative; /* 为了让文字悬浮在图片上 */
+    color: #fff; /* 文字颜色为白色 */
+    display: flex; /* 使用Flexbox排列文字 */
+    align-items: center; /* 垂直居中 */
+    white-space: nowrap; /* 防止文字换行 */
+}
+
+.extra-panel p {
+    font-size: 50px; /* 设置字体大小 */
+    color: #07533d; /* 设置字体颜色 */
+    font-family: 'Pacifico', cursive; /* 使用草书字体 */
+    font-weight: bold; /* 设置文字加粗 */
+    position: absolute; /* 文字浮于图片上 */
+    margin-top: 100px; /* 调整文字位置 */
+    left: 30px; /* 文字左对齐 */
+    transform: translateY(-50%); /* 垂直居中 */
+    z-index: 1; /* 确保文字在图片上层 */
+    /* 使用 -webkit-text-stroke 实现描边效果 */
+    -webkit-text-stroke: 0.8px #0aa5930d; /* 描边宽度1px，颜色白色 */
+    /* 如果希望兼容更多浏览器，也可以使用 text-shadow 模拟描边 */
+    text-shadow:
+        -1.5px -1.5px 0 #aa0e0e,
+         1.5px -1.5px 0 #ffffff,
+        -1.5px  1.5px 0 #ffffff,
+         1.5px  1.5px 0 #09fef6;
+}
+
+
+
+
+
+/* 联系我们区域 */
+.concat {
+    background: #f5f5f5;  /* 设置背景颜色为浅灰色 */
+	height: auto;
+}
+
+.qrcode-box{
+    padding-left: 150px;
+}
+/* 二维码容器 */
+.qrcode {
+    float: left;                 /* 二维码浮动到左侧 */
+    margin-right: 10px;          /* 设置二维码与其他元素的右边距 */
+}
+
+/* 二维码说明文本 */
+.qrcode .center {
+    margin: 10px;                /* 设置二维码说明文本的外边距 */
+}
+
+/* 联系信息容器 */
+.info-box {
+    float: left;                 /* 将联系信息容器浮动到左侧 */
+}
+
+/* 每一行的样式 */
+.line {
+    line-height: 1.5;              /* 设置行高为2倍行距 */
+    font-size: 20px;             /* 设置字体大小 */
+}
+
+/* 每行左侧小标题 */
+.line .title-small {
+    width: 50px;                 /* 设置小标题的宽度 */
+    display: inline-block;       /* 设置为行内块元素 */
+}
+
+/* 电话信息样式 */
+.phone {
+    float: right;                /* 将电话信息浮动到右侧 */
+    line-height: 3;     
+    margin-right: 300px;         /* 设置行高 */
+}
+
+.phone span {
+    font-size: 30px;             /* 设置电话信息字体大小 */
+}
+
+/* 页脚部分 */
+footer {
+    background: #000;           /* 设置背景颜色为黑色 */
+    color: #fff;                /* 设置文字颜色为白色 */
+    padding: 20px 0;             /* 设置上下内边距 */
+    display: block;             /* 确保footer是块级元素 */
+    width: 100%;                /* 设置footer宽度为100% */
+    text-align: center;         /* 设置文本水平居中 */
+}
+
+/* 如果您希望特定footer使用.center样式 */
+footer.center {
+    margin: 0 auto;             /* 设置自动左右边距 */
+    padding: 20px 0;            /* 保持上下内边距 */
+}
+
+
+/* 每个板块的基础样式 */
+.section {
+    width: 1014px;  /* 设置每个板块的宽度为1014px */
+    margin: 0 auto;  /* 设置左右外边距为自动，居中 */
+    overflow: hidden;  /* 隐藏超出容器的内容 */
+    margin-bottom: 57px;  /* 设置下边距 */
+}
+
+.section .title {
+    text-align: center;  /* 设置标题居中 */
+    margin-bottom: 26px;  /* 设置标题底部外边距 */
+}
+
+/* 图片圆角样式 */
+.section li .photo {
+    display: block;  /* 设置为块级元素 */
+    width: 312px;  /* 设置图片宽度为312px */
+    height: 312px;  /* 设置图片高度为312px */
+    border-radius: 156px;  /* 设置圆角，图片呈现为圆形 */
+    overflow: hidden;  /* 隐藏溢出的部分 */
+}
+
+.section li .tit {
+    display: block;  /* 设置为块级元素 */
+    height: 44px;  /* 设置标题的高度为44px */
+    color: #037066;  /* 设置文字颜色为绿色 */
+    font-size: 16px;  /* 设置字体大小为16px */
+    line-height: 44px;  /* 设置行高为44px，使文本垂直居中 */
+}
+
+.section li {
+    float: left;  /* 设置为浮动元素 */
+    width: 312px;  /* 设置宽度为312px */
+    margin: 0 13px;  /* 设置左右外边距 */
+    text-align: center;  /* 设置文本居中 */
+}
+
+/* 设置背景和高度的样式 */
+.section1 {
+    background: url(../img/index_24.gif) center center no-repeat;  /* 设置背景图 */
+    width: 100%;  /* 设置宽度为100% */
+    height: 551px;  /* 设置高度为551px */
+    margin-bottom: 38px;  /* 设置下边距 */
+}
+
+/* 新闻模块样式 */
+.news {
+    width: 1002px;  /* 设置宽度 */
+    margin: 0 auto;  /* 设置左右外边距为自动，居中 */
+    /* padding-top: 72px; */
+}
+
+.news .title {
+    text-align: center;  /* 设置标题居中 */
+    margin-bottom: 62px;  /* 设置标题底部外边距 */
+}
+
+/* 新闻左侧的样式 */
+.news .n_left {
+    float: left;  /* 设置为浮动元素 */
+    width: 305px;  /* 设置宽度为305px */
+    height: 271px;  /* 设置高度为271px */
+    padding: 7px 7px 0;  /* 设置内边距 */
+    background: #e75f6a;  /* 设置背景颜色 */
+    position: relative;  /* 设置相对定位 */
+}
+
+/* 新闻右侧的图片区域 */
+#ifocus_pic {
+    position: relative;  /* 设置相对定位 */
+    width: 305px;  /* 设置宽度为305px */
+    height: 271px;  /* 设置高度为271px */
+    overflow: hidden;  /* 隐藏超出容器的内容 */
+}
+
+/* 新闻右侧的文本区域 */
+#ifocus_tx {
+    width: 293px;  /* 设置宽度为293px */
+    height: 34px;  /* 设置高度为34px */
+    line-height: 34px;  /* 设置文本垂直居中 */
+    text-align: right;  /* 设置文本右对齐 */
+    padding-right: 12px;  /* 设置右内边距 */
+    position: absolute;  /* 设置绝对定位 */
+    left: 0;
+    bottom: 0;
+}
+
+/* 按钮区域样式 */
+#ifocus_tx a {
+    color: #fff;  /* 设置按钮的文字颜色为白色 */
+}
+
+/* 按钮的背景色 */
+#ifocus_btn {
+    position: absolute;  /* 设置绝对定位 */
+    width: 305px;  /* 设置宽度为305px */
+    bottom: 40px;  /* 距离底部40px */
+    z-index: 1000000;  /* 设置按钮层级 */
+}
+
+#ifocus_btn ul {
+    width: 305px;  /* 设置宽度为305px */
+    text-align: right;  /* 设置文本右对齐 */
+    zomm: 1;
+}
+
+/* 按钮项样式 */
+#ifocus_btn ul li {
+    display: inline-block;  /* 设置按钮项为行内块元素 */
+    width: 8px;  /* 设置宽度为8px */
+    height: 8px;  /* 设置高度为8px */
+    margin: 0 2px;  /* 设置左右外边距 */
+    background: #fff;  /* 设置按钮背景为白色 */
+    border-radius: 4px;  /* 设置圆角 */
+    font-size: 0;  /* 设置字体大小为0 */
+}
+
+/* 激活的按钮样式 */
+#ifocus_btn ul li.on {
+    background: #e75f6a;  /* 设置激活按钮背景颜色为红色 */
+}
+
+/* 新闻右侧的内容样式 */
+.n_right {
+    float: right;  /* 设置为浮动元素 */
+    width: 602px;  /* 设置宽度为602px */
+}
+
+/* 新闻右侧每一项的样式 */
+.n_right li .date {
+    float: left;  /* 设置为浮动元素 */
+    width: 78px;  /* 设置宽度为78px */
+    height: 70px;  /* 设置高度为70px */
+    border-right: 1px solid #ea979d;  /* 设置右边框 */
+    color: #ffd800;  /* 设置文字颜色为黄色 */
+    font-size: 50px;  /* 设置字体大小为50px */
+    font-family: Arial;
+    line-height: 70px;  /* 设置行高，使文字垂直居中 */
+}
+
+.n_right li .info {
+    float: right;  /* 设置为浮动元素 */
+    width: 495px;  /* 设置宽度为495px */
+    line-height: 22px;  /* 设置行高为22px */
+    color: #c2c0be;  /* 设置文字颜色 */
+}
+
+.n_right li .info a {
+    display: block;  /* 设置为块级元素 */
+    height: 28px;  /* 设置高度为28px */
+    line-height: 28px;  /* 设置行高，使文字垂直居中 */
+    color: #fff;  /* 设置文字颜色为白色 */
+}
+
+/* 每一项新闻的样式 */
+.n_right li {
+    height: 72px;  /* 设置高度为72px */
+    overflow: hidden;  /* 隐藏超出容器的内容 */
+    margin-bottom: 22px;  /* 设置底部外边距 */
+}
+
+/* 学生模块样式 */
+.student {
+    width: 1002px;  /* 设置宽度为1002px */
+    margin: 0 auto;  /* 设置居中 */
+    background: url(../img/index_35.gif) #fffefa 145px bottom no-repeat;  /* 设置背景图片 */
+    height: 572px;  /* 设置高度为572px */
+    overflow: hidden;  /* 隐藏超出容器的内容 */
+}
+
+.student .title {
+    text-align: center;  /* 设置标题居中 */
+    margin-bottom: 28px;  /* 设置底部外边距 */
+}
+
+/* 学生列表样式 */
+.student .list {
+    width: 100%;
+    text-align: center;
+    height: 25px;
+    overflow: hidden;
+    margin-bottom: 48px;  /* 设置底部外边距 */
+}
+
+/* 学生列表项样式 */
+.student .list a {
+    display: inline-block;  /* 设置为行内块元素 */
+    width: 84px;  /* 设置宽度为84px */
+    height: 25px;  /* 设置高度为25px */
+    line-height: 25px;  /* 设置行高 */
+    text-align: center;  /* 设置文本居中 */
+    background: #f7eedc;  /* 设置背景色 */
+    color: #d42e3b;  /* 设置文字颜色 */
+    font-size: 14px;  /* 设置字体大小 */
+    border-radius: 6px;  /* 设置圆角 */
+}
+
+/* 学生列表项悬停效果 */
+.student .list a:hover {
+    background: #d42e3b;  /* 设置背景色为红色 */
+    color: #fff;  /* 设置文字颜色为白色 */
+}
+
+/* 学生项目照片 */
+.student li .photo {
+    display: block;  /* 设置为块级元素 */
+    width: 166px;  /* 设置宽度为166px */
+    height: 166px;  /* 设置高度为166px */
+}
+
+/* 学生名称 */
+.student li .name {
+    display: block;  /* 设置为块级元素 */
+    height: 45px;  /* 设置高度为45px */
+    line-height: 45px;  /* 设置行高 */
+    text-align: center;  /* 设置文本居中 */
+}
+
+/* 学生项目 */
+.student li {
+    float: left;  /* 设置为浮动元素 */
+    width: 166px;  /* 设置宽度为166px */
+    height: 211px;  /* 设置高度为211px */
+    padding: 5px 5px 0;  /* 设置内边距 */
+    border: 1px solid #fcf9f3;  /* 设置边框 */
+    margin: 0 8px;  /* 设置左右外边距 */
+    background: #fff;  /* 设置背景颜色为白色 */
+}
+
+/* 学生项目悬停效果 */
+.student li:hover {
+    background: #d42e3b;  /* 设置背景颜色为红色 */
+    border-color: #d42e3b;  /* 设置边框颜色为红色 */
+}
+
+/* 学生项目悬停时文字颜色 */
+.student li:hover a {
+    color: #fff;  /* 设置文字颜色为白色 */
+}
+
+
+/* 学生模块相关 */
+.student .bd {
+    width: 970px;  /* 设置宽度为970px */
+    margin: 0 auto;  /* 设置左右外边距为自动，居中 */
+    overflow: hidden;  /* 隐藏超出容器的内容 */
+}
+
+.student .hd {
+    width: 100%;  /* 设置宽度为100% */
+    margin-top: 46px;  /* 设置上边距为46px */
+    text-align: center;  /* 设置文本居中 */
+}
+
+.student .hd a {
+    display: inline-block;  /* 设置为行内块元素 */
+    width: 57px;  /* 设置宽度为57px */
+    height: 33px;  /* 设置高度为33px */
+    margin: 0 20px;  /* 设置左右外边距为20px */
+    cursor: pointer;  /* 设置光标为指针形态 */
+}
+
+.student .hd .prev {
+    background: url(../img/index_44.gif) no-repeat;  /* 设置左侧按钮背景图 */
+}
+
+.student .hd .next {
+    background: url(../img/index_41.gif) no-repeat;  /* 设置右侧按钮背景图 */
+}
+
+/* 内容相关 */
+.single_con .ny_right .content {
+    line-height: 27px;  /* 设置行高为27px */
+}
+
+/* 新闻模块相关 */
+.news_con .ny_right .content_title {
+    margin-bottom: 30px;  /* 设置底部外边距为30px */
+    padding-bottom: 20px;  /* 设置底部内边距为20px */
+    text-align: center;  /* 设置文本居中 */
+    border-bottom: 1px #ddd dotted;  /* 设置底部为1px的灰色虚线 */
+}
+
+.news_con .ny_right .content_title h3 {
+    font-size: 17px;  /* 设置标题的字体大小为17px */
+    color: #4d5260;  /* 设置标题的颜色为灰色 */
+}
+
+.news_con .ny_right .content_title .info {
+    margin-top: 15px;  /* 设置上边距为15px */
+    font-size: 12px;  /* 设置字体大小为12px */
+    color: #aaa;  /* 设置文字颜色为灰色 */
+}
+
+.news_con .ny_right .content_title .info span {
+    display: inline-block;  /* 设置为行内块元素 */
+    margin: 0 10px;  /* 设置左右外边距为10px */
+}
+
+.news_con .ny_right .content {
+    line-height: 27px;  /* 设置行高为27px */
+}
+
+/* 第一条新闻列表样式 */
+.first_list {
+    height: 125px;  /* 设置高度为125px */
+    overflow: hidden;  /* 隐藏超出容器的内容 */
+    margin-bottom: 26px;  /* 设置底部外边距为26px */
+}
+
+.first_list img {
+    border: solid 1px #c2c2c2;  /* 设置边框为1px的灰色实线 */
+    float: left;  /* 设置为浮动元素 */
+    width: 210px;  /* 设置宽度为210px */
+    height: 123px;  /* 设置高度为123px */
+}
+
+.first_list .right {
+    float: right;  /* 设置为浮动元素 */
+    color: #8c8573;  /* 设置文字颜色为灰色 */
+    line-height: 20px;  /* 设置行高为20px */
+    width: 516px;  /* 设置宽度为516px */
+}
+
+.first_list .right .tit {
+    display: block;  /* 设置为块级元素 */
+    height: 31px;  /* 设置高度为31px */
+    color: #d42e3b;  /* 设置标题的颜色为红色 */
+    font-size: 14px;  /* 设置字体大小为14px */
+}
+
+.first_list .right .text {
+    height: 40px;  /* 设置高度为40px */
+    overflow: hidden;  /* 隐藏超出容器的内容 */
+    margin-bottom: 4px;  /* 设置底部外边距为4px */
+}
+
+.first_list .right a {
+    color: #cf281f;  /* 设置链接文字的颜色为红色 */
+    display: block;  /* 设置为块级元素 */
+}
+
+.first_list .right .date {
+    display: block;  /* 设置为块级元素 */
+    height: 20px;  /* 设置高度为20px */
+    line-height: 20px;  /* 设置行高为20px */
+    background: url(../img/news_list_time.jpg) left center no-repeat;  /* 设置背景图 */
+    padding-left: 20px;  /* 设置左内边距为20px */
+    margin-top: 10px;  /* 设置上边距为10px */
+}
+
+/* 其他新闻列表样式 */
+.other_list {
+    margin-bottom: 67px;  /* 设置底部外边距为67px */
+}
+
+.other_list li {
+    height: 37px;  /* 设置高度为37px */
+    line-height: 37px;  /* 设置行高为37px */
+    border-bottom: dotted 1px #dddddd;  /* 设置底部为1px的灰色虚线 */
+}
+
+.other_list a:hover, .other_list li:hover {
+    color: #d42e3b;  /* 设置悬停时文字颜色为红色 */
+}
+
+.other_list li span {
+    float: right;  /* 设置为浮动元素 */
+}
+
+/* 分页按钮样式 */
+.list_btn {
+    margin: 20px auto;  /* 设置上下外边距为20px，左右自动居中 */
+    width: 752px;  /* 设置宽度为752px */
+}
+
+.list_btn_l_r {
+    float: left;  /* 设置为浮动元素 */
+    width: 20px;  /* 设置宽度为20px */
+    height: 20px;  /* 设置高度为20px */
+    border: solid 1px #d3d3d3;  /* 设置边框为1px的灰色实线 */
+    text-align: center;  /* 设置文本居中 */
+    color: #d3d3d3;  /* 设置文字颜色为灰色 */
+    -webkit-transition: all 0.5s;  /* 设置过渡效果 */
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.list_btn_l_r:hover {
+    color: #8c8573;  /* 设置悬停时文字颜色为灰绿色 */
+    border-color: #8c8573;  /* 设置悬停时边框颜色为灰绿色 */
+}
+
+.list_btn_line {
+    float: left;  /* 设置为浮动元素 */
+    width: 85px;  /* 设置宽度为85px */
+    height: 1px;  /* 设置高度为1px */
+    background-color: #d3d3d3;  /* 设置背景色为灰色 */
+    margin-top: 11px;  /* 设置上边距为11px */
+}
+
+.list_btn_num {
+    width: 120px;  /* 设置宽度为120px */
+    float: left;  /* 设置为浮动元素 */
+    margin: 0 9px;  /* 设置左右外边距为9px */
+    text-align: center;  /* 设置文本居中 */
+}
+
+.list_btn_num a {
+    display: inline-block;  /* 设置为行内块元素 */
+    width: 20px;  /* 设置宽度为20px */
+    height: 20px;  /* 设置高度为20px */
+    text-align: center;  /* 设置文本居中 */
+    border: solid 1px #d3d3d3;  /* 设置边框为1px的灰色实线 */
+    margin: 0 2px;  /* 设置左右外边距为2px */
+    color: #606060;  /* 设置文字颜色为灰色 */
+    -webkit-transition: all 0.5s;  /* 设置过渡效果 */
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.list_btn_num a:hover, .list_btn_num .hover {
+    color: #d42e3b;  /* 设置悬停时文字颜色为红色 */
+    border-color: #d42e3b;  /* 设置悬停时边框颜色为红色 */
+}
+
+/* 新闻模块标题样式 */
+.news_con .ny_right .content_tit {
+    height: 40px;  /* 设置高度为40px */
+    line-height: 40px;  /* 设置行高为40px */
+    text-align: center;  /* 设置文本居中 */
+    font-weight: bold;  /* 设置字体加粗 */
+    border-bottom: 1px solid #ccc;  /* 设置底部为1px的灰色实线 */
+    overflow: hidden;  /* 隐藏超出容器的内容 */
+}
+
+/* 新闻模块相关内容样式 */
+.news_con .ny_right .content_related {
+    padding: 6px 0;  /* 设置上下内边距为6px */
+    text-align: center;  /* 设置文本居中 */
+    margin-bottom: 30px;  /* 设置底部外边距为30px */
+}
+
+.news_con .ny_right .content {
+    line-height: 27px;  /* 设置行高为27px */
+}
+
+/* 新闻模块内容按钮样式 */
+.news_con .ny_right .content_btn {
+    line-height: 27px;  /* 设置行高为27px */
+}
+
+.news_con .ny_right .content_btn a {
+    color: #2d3140;  /* 设置文字颜色 */
+}
+
+/* 产品展示模块 */
+.pro_con .ny_right .content {
+    line-height: 27px;  /* 设置行高为27px */
+}
+
+.pro_con .ny_right .content ul {
+    float: left;  /* 设置为浮动元素 */
+    margin: 0 -24px 0 -23px;  /* 设置左右外边距 */
+}
+
+.pro_con .ny_right .content li {
+    float: left;  /* 设置为浮动元素 */
+    width: 212px;  /* 设置宽度为212px */
+    height: 310px;  /* 设置高度为310px */
+    border: solid 3px transparent;  /* 设置透明边框 */
+    margin: 0 24px 67px;  /* 设置左右外边距为24px，底部外边距为67px */
+    -webkit-transition: all 0.3s;  /* 设置过渡效果 */
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.pro_con .ny_right .content li .photo {
+    display: block;  /* 设置为块级元素 */
+    width: 213px;  /* 设置宽度为213px */
+    height: 200px;  /* 设置高度为200px */
+}
+
+.pro_con .ny_right .content li .info {
+    width: 213px;  /* 设置宽度为213px */
+    height: 110px;  /* 设置高度为110px */
+    background: #f5f5f5;  /* 设置背景色为灰色 */
+}
+
+.pro_con .ny_right .content li .info .name {
+    height: 40px;  /* 设置高度为40px */
+    line-height: 40px;  /* 设置行高为40px */
+    padding-left: 19px;  /* 设置左内边距为19px */
+    font-size: 14px;  /* 设置字体大小为14px */
+    font-weight: bold;  /* 设置字体加粗 */
+}
+
+.pro_con .ny_right .content li .info .text {
+    line-height: 18px;  /* 设置行高为18px */
+    padding: 0 19px;  /* 设置左右内边距为19px */
+    height: 36px;  /* 设置高度为36px */
+    overflow: hidden;  /* 隐藏超出容器的内容 */
+    margin-bottom: 10px;  /* 设置底部外边距为10px */
+}
+
+.pro_con .ny_right .content li .info .more {
+    display: block;  /* 设置为块级元素 */
+    height: 24px;  /* 设置高度为24px */
+    line-height: 24px;  /* 设置行高为24px */
+    background: #adadad;  /* 设置背景色为灰色 */
+    padding-left: 20px;  /* 设置左内边距为20px */
+    color: #fff;  /* 设置文字颜色为白色 */
+    -webkit-transition: all 0.3s;  /* 设置过渡效果 */
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.pro_con .ny_right .content li:hover {
+    border-color: #d42e3b;  /* 设置悬停时边框颜色为红色 */
+}
+
+.pro_con .ny_right .content li:hover .more {
+    background: #d42e3b;  /* 设置悬停时背景色为红色 */
+}
+
+
+.pagelink {
+	height: 26px;
+	width: 350px;
+	line-height: 26px;
+	TEXT-ALIGN: center;
+	float: left;
+}
+.pagelink li {
+	float: left;
+	margin-right: 3px;
+	list-style-type: none;
+	border: solid 1px;
+}
+.pagelink a, .pagelink span {
+	padding: 0 3px;
+}
+.pagelink .thisclass {
+	padding: -5px auto 3px;
+	color: #F00;
+	border: solid 1px #FF0000;
+}
+.pagelink .thisclass a {
+	padding: -5px auto 3px;
+	color: #F00;
+	;
+}
+.pagelink a.on, .pagelink a:hover {
+	color: #F9003B;
+}
